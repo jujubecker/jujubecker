@@ -1,15 +1,17 @@
 ## Olá, eu sou a Juju 👋
 
-<!--
-  Este README aparece na sua página de perfil do GitHub (github.com/jujubecker),
-  visível para qualquer pessoa. Edite os campos abaixo com as suas informações
-  e apague os comentários como este quando terminar.
--->
+Estudante de **Comunicação Social na UFRJ** e **analista de vendas jr na M2**, onde atuo com prospecção, treinamento e análise.
 
-<!-- Troque pelas suas informações: -->
-- 🎓 Estudante de **[seu curso]**
-- 🌱 Estudando no momento: **[tecnologia ou matéria]**
-- 💬 Fale comigo sobre: **[seus interesses]**
+Estudo a interseção entre **antropologia, linguagem e comunicação** e o que acontece quando ela encontra **marketing e tecnologia** — a teoria de como as pessoas constroem sentido, e a prática de quem conversa com elas todos os dias.
+
+### Interesses
+
+| Área | O que me interessa |
+|---|---|
+| 🗣️ Antropologia e linguagem | como o sentido é construído e negociado |
+| 📡 Comunicação | discurso, mídia e narrativa |
+| 📈 Marketing e vendas | prospecção, treinamento e análise de dados |
+| 💻 Tecnologia | automação e análise aplicadas à comunicação |
 
 ### Neste repositório
 
@@ -25,3 +27,10 @@ Para rodar qualquer repositório sem decorar comandos:
 ```
 
 Use `--dry-run` para ver os comandos antes de executar. A documentação completa está em [`COMANDOS.md`](COMANDOS.md).
+
+<!--
+  Para adicionar contato, descomente e preencha:
+
+  ### Contato
+  - [LinkedIn](https://linkedin.com/in/SEU-PERFIL)
+-->
