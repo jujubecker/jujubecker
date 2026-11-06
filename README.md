@@ -1,6 +1,6 @@
 ## Olá, eu sou a Juju 👋
 
-Estudante de **Comunicação Social na UFRJ** e **analista de vendas jr na M2**, onde atuo com prospecção, treinamento e análise.
+Estudante de **Comunicação Social na UFRJ** e **analista de vendas jr numa empresa de comunicação visual**, onde atuo com prospecção, treinamento e análise.
 
 Estudo a interseção entre **antropologia, linguagem e comunicação** e o que acontece quando ela encontra **marketing e tecnologia** — a teoria de como as pessoas constroem sentido, e a prática de quem conversa com elas todos os dias.
 
@@ -28,9 +28,7 @@ Para rodar qualquer repositório sem decorar comandos:
 
 Use `--dry-run` para ver os comandos antes de executar. A documentação completa está em [`COMANDOS.md`](COMANDOS.md).
 
-<!--
-  Para adicionar contato, descomente e preencha:
+### Contato
 
-  ### Contato
-  - [LinkedIn](https://linkedin.com/in/SEU-PERFIL)
--->
+- [LinkedIn](https://www.linkedin.com/in/juliana-becker-49b894216)
+- julianadetommaso10@gmail.com
