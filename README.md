@@ -1,4 +1,4 @@
-## Olá, eu sou a Juju 👋
+## Olá, eu sou a Juliana 👋
 
 Estudante de **Comunicação Social na UFRJ** e **analista de vendas jr numa empresa de comunicação visual**, onde atuo com prospecção, treinamento e análise.
 
@@ -31,4 +31,3 @@ Use `--dry-run` para ver os comandos antes de executar. A documentação complet
 ### Contato
 
 - [LinkedIn](https://www.linkedin.com/in/juliana-becker-49b894216)
-- julianadetommaso10@gmail.com
