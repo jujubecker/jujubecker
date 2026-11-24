@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
-"""Consulta a base de precos de embalagens.
+"""Consulta a base de precos (embalagens, etiquetas e demais arquivos precos_*.csv).
 
 Exemplos:
     python3 fornecedores/consulta.py --qtd 1000
     python3 fornecedores/consulta.py --qtd 5000 --tamanho GG
     python3 fornecedores/consulta.py --qtd 10000 --categoria saco --cores 1/0
+    python3 fornecedores/consulta.py --categoria rotulo --material BOPP
 """
 
 import argparse
 import csv
+import glob
 import os
 import sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-PRECOS = os.path.join(BASE, "precos_embalagens.csv")
 
 
 def carregar():
-    with open(PRECOS, newline="", encoding="utf-8") as fh:
-        return list(csv.DictReader(fh))
+    """Le todos os arquivos precos_*.csv da pasta (embalagens, etiquetas, ...)."""
+    linhas = []
+    for caminho in sorted(glob.glob(os.path.join(BASE, "precos_*.csv"))):
+        with open(caminho, newline="", encoding="utf-8") as fh:
+            linhas.extend(csv.DictReader(fh))
+    return linhas
 
 
 def na_faixa(row, qtd):
@@ -46,9 +51,10 @@ def brl(valor):
 def main():
     ap = argparse.ArgumentParser(description="Consulta precos de embalagens por fornecedor.")
     ap.add_argument("--qtd", type=int, help="quantidade desejada (filtra a faixa de preco)")
-    ap.add_argument("--categoria", help="ex.: saco, sacola, etiqueta")
+    ap.add_argument("--categoria", help="ex.: saco, sacola, etiqueta, rotulo")
     ap.add_argument("--tamanho", help="ex.: GG, G2, G1, M, M2")
-    ap.add_argument("--cores", help="ex.: 1/0, 4/0")
+    ap.add_argument("--material", help="ex.: BOPP, Kraft, Offset")
+    ap.add_argument("--cores", help="ex.: 1/0, 4/0, digital")
     ap.add_argument("--fornecedor", help="filtra pelo nome do fornecedor")
     args = ap.parse_args()
 
@@ -56,10 +62,11 @@ def main():
         r
         for r in carregar()
         if na_faixa(r, args.qtd)
-        and contem(r["categoria"], args.categoria)
-        and contem(r["tamanho"], args.tamanho)
-        and contem(r["cores_impressao"], args.cores)
-        and contem(r["fornecedor"], args.fornecedor)
+        and contem(r.get("categoria"), args.categoria)
+        and contem(r.get("tamanho"), args.tamanho)
+        and contem(r.get("material"), args.material)
+        and contem(r.get("cores_impressao"), args.cores)
+        and contem(r.get("fornecedor"), args.fornecedor)
     ]
 
     if not linhas:

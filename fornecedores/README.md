@@ -8,8 +8,9 @@ relacionados. Atualizada manualmente conforme chegam novas propostas.
 | Arquivo | Conteúdo |
 |---|---|
 | `fornecedores.csv` | Cadastro dos fornecedores: CNPJ, contato, endereço, categorias atendidas |
-| `precos_embalagens.csv` | Tabela de preços por produto e faixa de quantidade |
-| `consulta.py` | Script de consulta: filtra e ordena preços por categoria, tamanho e quantidade |
+| `precos_embalagens.csv` | Preços de sacos e sacolas, por produto e faixa de quantidade |
+| `precos_etiquetas.csv` | Preços de etiquetas e rótulos — mesmo esquema de colunas (ainda vazio) |
+| `consulta.py` | Script de consulta: lê todos os `precos_*.csv` e ordena por preço unitário |
 
 ## Como usar
 
@@ -19,6 +20,10 @@ python3 fornecedores/consulta.py --qtd 1000
 
 ```bash
 python3 fornecedores/consulta.py --qtd 5000 --tamanho GG
+```
+
+```bash
+python3 fornecedores/consulta.py --categoria rotulo --material BOPP
 ```
 
 ## Dicionário de campos — `precos_embalagens.csv`
@@ -71,7 +76,20 @@ CNPJ 27.714.163/0001-92 · Rua Senador Alencar, 280 — São Cristóvão, Rio de
 Acabamentos: corte/vinco, colagem de lateral e fundo com reforço; GG com aplicação de alça de papel
 (kraft na versão 1/0, branca na 4/0). Preços unitários com impostos embutidos.
 
-## Equivalência de tamanhos entre os dois
+### F003 — M2 Flex (etiquetas e rótulos)
+
+Base de revenda. **Fornecedor padrão para etiquetas.** A tabela de preços ainda não foi
+carregada — `precos_etiquetas.csv` está só com o cabeçalho.
+
+**Regra padrão:** etiqueta = **rótulo de BOPP com impressão digital**, pela base de revenda da M2.
+Exceção única: **delivery**, quando especificado — aí é **etiqueta de papel**, porque precisa rasgar.
+
+O padrão de faca de corte da M2 Flex está na skill `faca-de-corte-m2`.
+
+> **Cuidado com o termo "M2":** aqui ele é a revenda **M2 Flex**. O **SOS M2** da Olimac é
+> um tamanho de saco (16,5 × 32,5 × 25,5 cm). São coisas diferentes.
+
+## Equivalência de tamanhos entre os dois fornecedores de embalagem
 
 Só existe **um par diretamente comparável**: o GG.
 
@@ -103,7 +121,10 @@ Os da Embaré são largos e rasos. Não dá para substituir um pelo outro sem te
    confirmar em qual faixa cai um pedido de exatamente 1.000 ou 10.000 unidades.
 8. **Linha "G1 5000/1000"** — registrada como 500/1.000 por coerência com os outros tamanhos. Confirmar.
 9. **Frete e prazo de produção** — não informados por nenhum dos dois.
-10. **Etiquetas** — nenhuma cotação ainda. Pedir para os dois.
+10. **Tabela de rótulos da M2 Flex** — carregar em `precos_etiquetas.csv`: material
+    (BOPP branco, transparente, metalizado), medidas, faixas de quantidade, acabamento
+    (verniz, laminação), tipo de corte e preço por unidade ou por metro de rolo.
+11. **Etiqueta de papel para delivery** — levantar a opção na M2 para quando o pedido pedir.
 
 ## Observações contratuais (Olimac)
 
