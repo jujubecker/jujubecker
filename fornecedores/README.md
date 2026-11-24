@@ -110,29 +110,47 @@ Exceção única: **delivery**, quando especificado — aí é **etiqueta de pap
 - **Promoção Black Friday GR 26** válida até **30/11/2026 às 23:59**. Depois disso valem os preços cheios.
 - Dados levantados no **ambiente de homologação** — conferir com a tabela oficial antes de passar para revenda.
 
-#### Folha A3 compensa mais que m²
+#### O m² sempre compensa mais que a folha A3
 
-Uma folha A3 tem 0,12474 m². Comprando por m², a área equivalente a uma folha sairia:
+A comparação certa não é o preço da área da folha, e sim **o custo da etiqueta que sai dela**.
 
-| Papel | Equivalente por m² | Folha A3 | Diferença |
-|---|---|---|---|
-| BOPP | R$ 4,87 | R$ 4,65 | folha 4,6% mais barata |
-| Couchê Brilho | R$ 4,29 | R$ 3,91 | folha 8,9% mais barata |
+A folha A3 tem 0,12474 m², mas você paga ela inteira e só aproveita 0,11490 m²: os 7 mm de
+margem em cada borda são área morta que entra no preço. No m² você informa largura e altura,
+então não paga margem — só o espaço de 5 mm entre as peças. Somado ao retalho que sobra
+quando a peça não preenche a folha, o m² ganha sempre:
 
-Conclusão: **tudo que couber em A3 deve ser pedido como folha.** O m² só vale para peça maior
-que A3 ou largura fora do padrão.
+| Rótulo | Cabem na A3 | R$/etiq. via folha | R$/etiq. via m² | m² é |
+|---|---|---|---|---|
+| 2 × 2 cm | 176 | R$ 0,0264 | R$ 0,0244 | 7,6% mais barato |
+| 3 × 3 cm | 88 | R$ 0,0528 | R$ 0,0478 | 9,4% |
+| 5 × 5 cm | 35 | R$ 0,1329 | R$ 0,1182 | 11,1% |
+| 7 × 10 cm | 10 | R$ 0,4650 | R$ 0,3076 | 33,9% |
+| 10 × 15 cm | 4 | R$ 1,1625 | R$ 0,6357 | 45,3% |
+| 15 × 20 cm | 2 | R$ 2,3250 | R$ 1,2411 | 46,6% |
+
+Quanto maior a peça, maior o desperdício da folha e maior a vantagem do m².
+
+**Mesmo no melhor caso da folha** — 100% da área útil ocupada, zero sobra — o m² sairia
+R$ 4,49 contra R$ 4,65. Não existe tamanho em que a folha A3 ganhe.
+
+O m² ainda tem mais opção de mídia: BOPP Transparente Brilho e Metalizada só existem nessa
+modalidade. Na folha A3 é só Adesivo Brilho.
+
+> Único cenário a verificar: se a M2 cobrar um **mínimo de m²** por pedido, um pedido muito
+> pequeno pode acabar saindo mais caro no m². Confirmar.
 
 #### Custo por etiqueta
 
-O preço é por folha, não por etiqueta — o custo unitário depende de quantas peças cabem na A3.
-O script calcula isso no padrão de montagem da skill `faca-de-corte-m2` (margem de 7 mm, 5 mm
-entre peças, testando os dois sentidos):
+O custo unitário depende do aproveitamento. O script calcula os dois caminhos no padrão de
+montagem da skill `faca-de-corte-m2` (margem de 7 mm, 5 mm entre peças, testando os dois
+sentidos da folha):
 
 ```bash
 python3 fornecedores/consulta.py --categoria rotulo --material BOPP --rotulo 5x5 --qtd 1000
 ```
 
-Para um rótulo de 5 × 5 cm cabem 35 por folha, o que dá R$ 0,13 por etiqueta em BOPP.
+Para um rótulo de 5 × 5 cm em BOPP: 35 cabem por folha A3, a R$ 0,1329 cada — contra
+R$ 0,1182 pedindo por m². **Cotar por m².**
 
 > **Cuidado com o termo "M2":** aqui ele é a revenda **M2 Flex**. O **SOS M2** da Olimac é
 > um tamanho de saco (16,5 × 32,5 × 25,5 cm). São coisas diferentes.
@@ -169,11 +187,13 @@ Os da Embaré são largos e rasos. Não dá para substituir um pelo outro sem te
    confirmar em qual faixa cai um pedido de exatamente 1.000 ou 10.000 unidades.
 8. **Linha "G1 5000/1000"** — registrada como 500/1.000 por coerência com os outros tamanhos. Confirmar.
 9. **Frete e prazo de produção** — não informados por nenhum dos dois.
-10. **Confirmar os preços da M2 na tabela oficial** — os valores vieram do ambiente de homologação.
-11. **Imposto na M2** — os preços de revenda são com ou sem?
-12. **Laminação por folha A3** — o valor de R$ 0,50 é cálculo a partir do preço por m².
+10. **Mínimo de m² por pedido na M2** — se existir, é o único caso em que a folha A3 poderia
+    compensar.
+11. **Confirmar os preços da M2 na tabela oficial** — os valores vieram do ambiente de homologação.
+12. **Imposto na M2** — os preços de revenda são com ou sem?
+13. **Laminação por folha A3** — o valor de R$ 0,50 é cálculo a partir do preço por m².
     Confirmar no carrinho.
-13. **Etiqueta de papel para delivery** — o Couchê Brilho serve? Confirmar se rasga como
+14. **Etiqueta de papel para delivery** — o Couchê Brilho serve? Confirmar se rasga como
     a aplicação de delivery exige, ou se existe outra opção na M2.
 
 ## Observações contratuais (Olimac)

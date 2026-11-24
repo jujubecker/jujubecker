@@ -136,14 +136,38 @@ def main():
                 f"(margem de {MARGEM*10:.0f} mm, {ESPACO*10:.0f} mm entre pecas)."
             )
             print()
-            for r in [x for x in linhas if x.get("unidade_venda") == "folha A3"]:
-                unit = float(r["preco_unit_brl"]) / cabem
+            area_peca = (larg + ESPACO) * (alt + ESPACO) / 1e4  # m2 ocupados por etiqueta
+
+            for r in linhas:
+                unidade = r.get("unidade_venda")
+                preco = float(r["preco_unit_brl"])
+                if unidade == "folha A3":
+                    por_etiqueta = preco / cabem
+                    base = f"{cabem} por folha"
+                elif unidade == "m2":
+                    por_etiqueta = preco * area_peca
+                    base = f"{area_peca*1e4:.1f} cm2 por etiqueta"
+                else:
+                    continue
                 extra = ""
                 if args.qtd:
-                    folhas = math.ceil(args.qtd / cabem)
-                    total = folhas * float(r["preco_unit_brl"])
-                    extra = f"  ->  {folhas} folhas para {args.qtd} un = R$ {brl(total)}"
-                print(f"  {r['produto'][:46]:<46} R$ {brl(unit):>6} / etiqueta{extra}")
+                    if unidade == "folha A3":
+                        folhas = math.ceil(args.qtd / cabem)
+                        extra = f"  {folhas} folhas = R$ {brl(folhas * preco)}"
+                    else:
+                        m2 = area_peca * args.qtd
+                        extra = f"  {m2:.2f} m2 = R$ {brl(m2 * preco)}"
+                print(
+                    f"  {r['produto'][:44]:<44} {unidade:<9} R$ {brl(por_etiqueta):>7} /etiq "
+                    f"({base}){extra}"
+                )
+
+            print()
+            print(
+                "Lembrete: por m2 voce nao paga a margem de 7 mm nem o retalho que sobra "
+                "da folha.\n  O m2 sai mais barato em qualquer tamanho - confirmar so se "
+                "a M2 cobra um minimo de m2."
+            )
 
     # --- custo total, so para itens vendidos por unidade ---
     if args.qtd:
