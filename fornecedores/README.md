@@ -9,7 +9,7 @@ relacionados. Atualizada manualmente conforme chegam novas propostas.
 |---|---|
 | `fornecedores.csv` | Cadastro dos fornecedores: CNPJ, contato, endereço, categorias atendidas |
 | `precos_embalagens.csv` | Preços de sacos e sacolas, por produto e faixa de quantidade |
-| `precos_etiquetas.csv` | Preços de etiquetas e rótulos — mesmo esquema de colunas (ainda vazio) |
+| `precos_etiquetas.csv` | Preços de etiquetas e rótulos — mesmo esquema de colunas |
 | `consulta.py` | Script de consulta: lê todos os `precos_*.csv` e ordena por preço unitário |
 
 ## Como usar
@@ -36,7 +36,8 @@ python3 fornecedores/consulta.py --categoria rotulo --material BOPP
 - **alca** — se tem alça e de que tipo
 - **faixa_informada** — faixa de quantidade exatamente como o fornecedor passou
 - **qtd_min / qtd_max** — faixa normalizada para cálculo (qtd_max vazio = sem limite)
-- **preco_unit_brl** — preço por unidade em reais
+- **unidade_venda** — a que o preço se refere: `unidade`, `folha A3` ou `m2`
+- **preco_unit_brl** — preço em reais, na unidade indicada acima
 - **impostos_inclusos** — `sim`, `nao` ou `a confirmar`
 - **total_estimado_brl** — total da proposta para aquela quantidade, quando informado
 - **data_cotacao / validade** — datas no formato ISO (AAAA-MM-DD)
@@ -76,15 +77,62 @@ CNPJ 27.714.163/0001-92 · Rua Senador Alencar, 280 — São Cristóvão, Rio de
 Acabamentos: corte/vinco, colagem de lateral e fundo com reforço; GG com aplicação de alça de papel
 (kraft na versão 1/0, branca na 4/0). Preços unitários com impostos embutidos.
 
-### F003 — M2 Flex (etiquetas e rótulos)
+### F003 — M2 Flex / M2 Store (etiquetas e rótulos)
 
-Base de revenda. **Fornecedor padrão para etiquetas.** A tabela de preços ainda não foi
-carregada — `precos_etiquetas.csv` está só com o cabeçalho.
+**Fornecedor padrão para etiquetas.** Impressão digital, cor 4/0.
+Duas modalidades: **Meio Corte + Depilado em Folha** (preço fechado por folha A3) e
+**Meio Corte + Depilado** (preço por m², com largura e altura informadas).
+Não há desconto por faixa de quantidade — o preço é fixo e o total só multiplica.
 
-**Regra padrão:** etiqueta = **rótulo de BOPP com impressão digital**, pela base de revenda da M2.
+**Regra padrão:** etiqueta = **rótulo de BOPP com impressão digital**.
 Exceção única: **delivery**, quando especificado — aí é **etiqueta de papel**, porque precisa rasgar.
 
-O padrão de faca de corte da M2 Flex está na skill `faca-de-corte-m2`.
+#### Folha A3 (só com mídia Adesivo Brilho)
+
+| Papel | Por folha | Preço cheio |
+|---|---|---|
+| Couchê Brilho, sem laminação | R$ 3,91 | R$ 4,20 |
+| Couchê Brilho + laminação | ~R$ 4,41 | — |
+| **BOPP, sem laminação** | **R$ 4,65** | R$ 5,00 |
+| BOPP + laminação | ~R$ 5,15 | — |
+
+#### Por m²
+
+| Papel / mídia | Por m² | Preço cheio |
+|---|---|---|
+| Couchê Brilho + Adesivo Brilho, sem laminação | R$ 34,41 | R$ 37,00 |
+| Couchê Brilho, com laminação | R$ 38,41 | — |
+| **BOPP** (Adesivo Brilho, Transparente Brilho ou Metalizada), sem laminação | **R$ 39,06** | R$ 42,00 |
+| BOPP, com laminação | R$ 43,06 | — |
+
+- **Laminação** brilho ou fosca: R$ 4,00/m², equivalente a R$ 0,50 por folha A3. Soma +1 dia útil.
+- **Prazo**: 3 dias úteis, +1 com laminação. Algumas modalidades de frete somam mais 1 dia.
+- **Promoção Black Friday GR 26** válida até **30/11/2026 às 23:59**. Depois disso valem os preços cheios.
+- Dados levantados no **ambiente de homologação** — conferir com a tabela oficial antes de passar para revenda.
+
+#### Folha A3 compensa mais que m²
+
+Uma folha A3 tem 0,12474 m². Comprando por m², a área equivalente a uma folha sairia:
+
+| Papel | Equivalente por m² | Folha A3 | Diferença |
+|---|---|---|---|
+| BOPP | R$ 4,87 | R$ 4,65 | folha 4,6% mais barata |
+| Couchê Brilho | R$ 4,29 | R$ 3,91 | folha 8,9% mais barata |
+
+Conclusão: **tudo que couber em A3 deve ser pedido como folha.** O m² só vale para peça maior
+que A3 ou largura fora do padrão.
+
+#### Custo por etiqueta
+
+O preço é por folha, não por etiqueta — o custo unitário depende de quantas peças cabem na A3.
+O script calcula isso no padrão de montagem da skill `faca-de-corte-m2` (margem de 7 mm, 5 mm
+entre peças, testando os dois sentidos):
+
+```bash
+python3 fornecedores/consulta.py --categoria rotulo --material BOPP --rotulo 5x5 --qtd 1000
+```
+
+Para um rótulo de 5 × 5 cm cabem 35 por folha, o que dá R$ 0,13 por etiqueta em BOPP.
 
 > **Cuidado com o termo "M2":** aqui ele é a revenda **M2 Flex**. O **SOS M2** da Olimac é
 > um tamanho de saco (16,5 × 32,5 × 25,5 cm). São coisas diferentes.
@@ -121,10 +169,12 @@ Os da Embaré são largos e rasos. Não dá para substituir um pelo outro sem te
    confirmar em qual faixa cai um pedido de exatamente 1.000 ou 10.000 unidades.
 8. **Linha "G1 5000/1000"** — registrada como 500/1.000 por coerência com os outros tamanhos. Confirmar.
 9. **Frete e prazo de produção** — não informados por nenhum dos dois.
-10. **Tabela de rótulos da M2 Flex** — carregar em `precos_etiquetas.csv`: material
-    (BOPP branco, transparente, metalizado), medidas, faixas de quantidade, acabamento
-    (verniz, laminação), tipo de corte e preço por unidade ou por metro de rolo.
-11. **Etiqueta de papel para delivery** — levantar a opção na M2 para quando o pedido pedir.
+10. **Confirmar os preços da M2 na tabela oficial** — os valores vieram do ambiente de homologação.
+11. **Imposto na M2** — os preços de revenda são com ou sem?
+12. **Laminação por folha A3** — o valor de R$ 0,50 é cálculo a partir do preço por m².
+    Confirmar no carrinho.
+13. **Etiqueta de papel para delivery** — o Couchê Brilho serve? Confirmar se rasga como
+    a aplicação de delivery exige, ou se existe outra opção na M2.
 
 ## Observações contratuais (Olimac)
 
