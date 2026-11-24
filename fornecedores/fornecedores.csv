@@ -1,0 +1,3 @@
+fornecedor_id,nome,razao_social,cnpj,cidade_uf,endereco,telefone,email,site,categorias,contato_vendedor,status,observacoes
+F001,Fornecedor 1 (a identificar),,,,,,,,"sacos","","ativo","Tabela de preços por faixa de quantidade recebida por mensagem. Faltam especificações técnicas: medidas, material, gramatura, impressão e alça."
+F002,Gráfica Olimac,Gráfica Olimac,27.714.163/0001-92,Rio de Janeiro/RJ,"Rua Senador Alencar, 280 - São Cristóvão",(21) 3253-0625,contato@graficaolimac.com.br,graficaolimac.com.br,"sacos;impressao","Direto","ativo","Proposta nº 12716 de 18/11/2026. Validade 7 dias. Prazo de entrega e condição de pagamento a combinar."

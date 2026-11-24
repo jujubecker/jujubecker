@@ -19,6 +19,7 @@ Estudo a interseção entre **antropologia, linguagem e comunicação** e o que 
 |---|---|
 | [`COMANDOS.md`](COMANDOS.md) | Guia de comandos de terminal para clonar, instalar e rodar projetos |
 | [`scripts/rodar-repo.sh`](scripts/rodar-repo.sh) | Script que detecta o tipo de projeto e o executa |
+| [`fornecedores/`](fornecedores/) | Base de fornecedores e preços de embalagens e etiquetas, com script de consulta |
 
 Para rodar qualquer repositório sem decorar comandos:
 
