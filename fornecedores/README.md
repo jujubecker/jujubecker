@@ -10,6 +10,7 @@ relacionados. Atualizada manualmente conforme chegam novas propostas.
 | `fornecedores.csv` | Cadastro dos fornecedores: CNPJ, contato, endereço, categorias atendidas |
 | `precos_embalagens.csv` | Preços de sacos e sacolas, por produto e faixa de quantidade |
 | `precos_etiquetas.csv` | Preços de etiquetas e rótulos — mesmo esquema de colunas |
+| `rotulos_aproveitamento.md` | Quantos rótulos cabem por m² e custo por etiqueta, de 3×3 a 7×7 |
 | `consulta.py` | Script de consulta: lê todos os `precos_*.csv` e ordena por preço unitário |
 
 ## Como usar
@@ -151,6 +152,9 @@ python3 fornecedores/consulta.py --categoria rotulo --material BOPP --rotulo 5x5
 
 Para um rótulo de 5 × 5 cm em BOPP: 35 cabem por folha A3, a R$ 0,1329 cada — contra
 R$ 0,1182 pedindo por m². **Cotar por m².**
+
+A tabela pronta de 3 × 3 a 7 × 7, redondo e quadrado, está em
+[`rotulos_aproveitamento.md`](rotulos_aproveitamento.md).
 
 > **Cuidado com o termo "M2":** aqui ele é a revenda **M2 Flex**. O **SOS M2** da Olimac é
 > um tamanho de saco (16,5 × 32,5 × 25,5 cm). São coisas diferentes.
