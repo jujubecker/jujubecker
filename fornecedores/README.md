@@ -107,6 +107,9 @@ Exceção única: **delivery**, quando especificado — aí é **etiqueta de pap
 | BOPP, com laminação | R$ 43,06 | — |
 
 - **Laminação** brilho ou fosca: R$ 4,00/m², equivalente a R$ 0,50 por folha A3. Soma +1 dia útil.
+- **Imposto incluso.** Sem taxa de arte, faca ou setup.
+- **Mínimo de 1 m²** na modalidade por m². A faca é montada por nós, com 5 mm entre peças
+  (2 mm de sangria de cada peça + 1 mm de distância).
 - **Prazo**: 3 dias úteis, +1 com laminação. Algumas modalidades de frete somam mais 1 dia.
 - **Promoção Black Friday GR 26** válida até **30/11/2026 às 23:59**. Depois disso valem os preços cheios.
 - Dados levantados no **ambiente de homologação** — conferir com a tabela oficial antes de passar para revenda.
@@ -137,8 +140,9 @@ R$ 4,49 contra R$ 4,65. Não existe tamanho em que a folha A3 ganhe.
 O m² ainda tem mais opção de mídia: BOPP Transparente Brilho e Metalizada só existem nessa
 modalidade. Na folha A3 é só Adesivo Brilho.
 
-> Único cenário a verificar: se a M2 cobrar um **mínimo de m²** por pedido, um pedido muito
-> pequeno pode acabar saindo mais caro no m². Confirmar.
+> **Confirmado: existe mínimo de 1 m².** Abaixo da virada, a folha A3 é mais barata —
+> 705 un no 3 × 3, 433 no 4 × 4, 281 no 5 × 5, 193 no 6 × 6 e 121 no 7 × 7.
+> Ver [`rotulos_aproveitamento.md`](rotulos_aproveitamento.md).
 
 #### Custo por etiqueta
 
@@ -191,14 +195,12 @@ Os da Embaré são largos e rasos. Não dá para substituir um pelo outro sem te
    confirmar em qual faixa cai um pedido de exatamente 1.000 ou 10.000 unidades.
 8. **Linha "G1 5000/1000"** — registrada como 500/1.000 por coerência com os outros tamanhos. Confirmar.
 9. **Frete e prazo de produção** — não informados por nenhum dos dois.
-10. **Mínimo de m² por pedido na M2** — se existir, é o único caso em que a folha A3 poderia
-    compensar.
-11. **Confirmar os preços da M2 na tabela oficial** — os valores vieram do ambiente de homologação.
-12. **Imposto na M2** — os preços de revenda são com ou sem?
-13. **Laminação por folha A3** — o valor de R$ 0,50 é cálculo a partir do preço por m².
-    Confirmar no carrinho.
-14. **Etiqueta de papel para delivery** — o Couchê Brilho serve? Confirmar se rasga como
+10. **Confirmar os preços da M2 na tabela oficial** — os valores vieram do ambiente de homologação.
+11. **Laminação por folha A3** — R$ 0,50 é cálculo a partir do m². Confirmar no carrinho.
+12. **Etiqueta de papel para delivery** — o Couchê Brilho serve? Confirmar se rasga como
     a aplicação de delivery exige, ou se existe outra opção na M2.
+13. **Fórmula do sistema da M2** — ele calcula o m² a partir do tamanho e da quantidade.
+    Mapear com o teste de 7 entradas em `rotulos_aproveitamento.md`.
 
 ## Observações contratuais (Olimac)
 

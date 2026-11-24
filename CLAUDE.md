@@ -24,6 +24,17 @@ delivery mas ela não disser o material, aí sim vale uma pergunta curta.
 
 Nunca confundir os dois ao ler ou escrever na base de preços.
 
+### Regras de produção de rótulo já confirmadas
+
+- A faca é montada por nós: montagem livre, desde que respeite **5 mm entre peças**
+  (2 mm de sangria de cada peça + 1 mm de distância).
+- **Imposto já incluso** nos preços de revenda da M2. Sem taxa de arte, faca ou setup.
+- **Mínimo de 1 m²** na modalidade por m². Abaixo da virada, cotar por folha A3.
+- O sistema da M2 calcula o m² a partir do tamanho da peça e da quantidade informados.
+
+Tabelas de aproveitamento, viradas e custo por etiqueta em
+[`fornecedores/rotulos_aproveitamento.md`](fornecedores/rotulos_aproveitamento.md).
+
 ### Faca de corte
 
 Para facas de corte existe a skill `faca-de-corte-m2`, no padrão de produção da M2 Flex.
